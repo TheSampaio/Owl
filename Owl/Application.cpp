@@ -37,11 +37,6 @@ int CApplication::Start(GGame* World)
 	return State;
 }
 
-CWindow*& CApplication::GetWindow()
-{
-	return s_Window;
-}
-
 // Runs the application
 int CApplication::Run()
 {

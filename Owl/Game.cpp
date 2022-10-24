@@ -16,13 +16,3 @@ void GGame::OnPause()
 {
 	Sleep(10);
 }
-
-void GGame::SetWindow(CWindow*& Window)
-{
-	s_Window = Window;
-}
-
-CWindow*& GGame::GetWindow()
-{
-	return s_Window;
-}

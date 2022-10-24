@@ -15,7 +15,7 @@ public:
 	int Start(GGame* Game);
 
 	// Get methods
-	CWindow*& GetWindow();
+	inline CWindow*& GetWindow() const { return s_Window; }
 
 private:
 	int Run();

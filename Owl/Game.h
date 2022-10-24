@@ -16,10 +16,10 @@ public:
 	virtual void Draw()					 PURE;
 	virtual void Finish()				 PURE;
 
-	void SetWindow(CWindow*& Window);
+	inline void SetWindow(CWindow*& Window) { s_Window = Window; }
 
 protected:
-	CWindow*& GetWindow();
+	inline CWindow*& GetWindow() const { return s_Window; }
 
 private:
 	static CWindow* s_Window;
