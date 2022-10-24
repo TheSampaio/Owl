@@ -2,6 +2,7 @@
 #include "Application.h"
 
 // Initialize window's static pointer
+GGame* CApplication::s_Game = nullptr;
 CWindow* CApplication::s_Window = nullptr;
 
 CApplication::CApplication()
@@ -15,17 +16,25 @@ CApplication::~CApplication()
 }
 
 // Start the application
-int CApplication::Start()
+int CApplication::Start(GGame* World)
 {
+	s_Game = World;
+	s_Game->SetWindow(s_Window);
+
 	// Create window and verify if was succeed
 	if (!s_Window->Create())
 	{
-		MessageBox(NULL, L"Failed to create window.", L"CApplication", MB_OK | MB_ICONERROR);
+		MessageBox(NULL, L"Failed to create window.", L"Owl Engine", MB_OK | MB_ICONERROR);
 		return EXIT_FAILURE;
 	}
 
 	// Runs the application
-	return Update();
+	timeBeginPeriod(1);
+	int State = Run();
+	timeBeginPeriod(1);
+
+	// Returns current engine's state
+	return State;
 }
 
 CWindow*& CApplication::GetWindow()
@@ -34,11 +43,11 @@ CWindow*& CApplication::GetWindow()
 }
 
 // Runs the application
-int CApplication::Update()
+int CApplication::Run()
 {
 	MSG Message{ NULL };
 
-	// TODO: Game->Start();
+	s_Game->Start();
 
 	// === Main Loop (Gameloop)
 	do
@@ -51,10 +60,10 @@ int CApplication::Update()
 
 		else
 		{
-			// TODO: Game->Update();
+			s_Game->Update(1.0f);
 			// TODO: Renderer->Clear();
 
-			// TODO: Game->Draw();
+			s_Game->Draw();
 			// TODO: Renderer->Show();
 
 			// """V-Sync"""
@@ -62,7 +71,7 @@ int CApplication::Update()
 		}
 	} while (Message.message != WM_QUIT);
 
-	// TODO: Game->End();
+	s_Game->Finish();
 
 	return static_cast<int>(Message.wParam);
 }

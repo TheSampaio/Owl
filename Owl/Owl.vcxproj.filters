@@ -2,38 +2,70 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Application.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PCH.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Window.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="WinMain.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Game\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PCH.h">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Types.h">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Window.h">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Default.h">
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Header Files">
+    <Filter Include="Engine">
+      <UniqueIdentifier>{97412137-fc61-4d49-bbce-190097ad1319}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Header Files">
       <UniqueIdentifier>{05024c43-99da-485b-971d-a3bc10bedc75}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files">
+    <Filter Include="Engine\Resource Files">
+      <UniqueIdentifier>{99eedb79-1f49-4f15-b6da-aab1ab88e05b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source Files">
       <UniqueIdentifier>{c2cefb84-25f4-43c9-9052-e7a10a5d00ae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{79f12e71-a413-4266-8e65-fdd4a587d474}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Header Files">
+      <UniqueIdentifier>{3f766065-58f2-475f-b577-ba0b230aaa92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Source Files">
+      <UniqueIdentifier>{af60172c-ef8f-4d89-b03f-86872c550db7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Resource Files">
+      <UniqueIdentifier>{80407b05-5410-4840-ad39-0a27990f95d0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Default.rc">
+      <Filter>Engine\Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
