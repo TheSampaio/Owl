@@ -1,0 +1,69 @@
+#ifndef OWL_WINDOW_H
+#define OWL_WINDOW_H
+
+class CWindow
+{
+public:
+	enum EDisplayMode
+	{
+		BORDLESS = 0,
+		FULLSCREEN,
+		WINDOWED
+	};
+
+	CWindow();
+
+	// Main methods
+	bool Create();
+	void Close();
+
+	// Input methods
+	bool GetKeyTap(int KeyCode);
+	inline bool GetKeyPress(int KeyCode)		 { return s_Keys[KeyCode]; }
+	inline bool GetKeyRelease(int KeyCode)		 { return !s_Keys[KeyCode]; }
+	inline std::array<int, 2> GetMousePosition() { return s_Mouse; }
+
+	// Get methods
+	inline HWND GetId()	const								{ return m_Id; }
+	inline HINSTANCE GetInstance() const					{ return m_Instance; }
+	inline COLORREF GetBackgroundColor() const				{ return m_BackgroundColor; }
+	inline std::string GetTitle() const						{ return m_Title; }
+	inline std::array<unsigned int, 2> GetScreen() const	{ return m_Screen; }
+	inline std::array<unsigned int, 2> GetSize() const		{ return m_Size; }
+	inline std::array<unsigned int, 2> GetPosition() const	{ return m_Position; }
+	inline std::array<unsigned int, 2> GetCenter() const	{ return m_Center; }
+
+	// Set methods
+	void SetSize(unsigned int Width, unsigned int Height);
+	void SetDisplayMode(unsigned int DisplayMode);
+
+	inline void SetTitle(const std::string Title)	 { m_Title = Title; }
+	inline void SetIcon(const unsigned int Icon)	 { m_Icon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(Icon)); };
+	inline void SetCursor(const unsigned int Cursor) { m_Cursor = LoadCursor(GetModuleHandle(NULL), MAKEINTRESOURCE(Cursor)); };
+	inline void SetBackgroundColor(unsigned int Red, unsigned int Green, unsigned int Blue) { m_BackgroundColor = RGB(Red, Green, Blue); }
+	
+	// Static methods
+	static LRESULT CALLBACK Procedure(HWND hWindow, UINT uMessage, WPARAM wParam, LPARAM lParam); // Window's procedure function
+
+private:
+	HWND m_Id;
+	HINSTANCE m_Instance;
+
+	HICON m_Icon;
+	HCURSOR m_Cursor;
+	COLORREF m_BackgroundColor;
+	DWORD m_Style;
+
+	std::string m_Title;
+	std::array<unsigned int, 2> m_Screen;
+	std::array<unsigned int, 2> m_Size;
+	std::array<unsigned int, 2> m_Position;
+	std::array<unsigned int, 2> m_Center;
+
+	unsigned int m_DisplayMode;
+
+	static bool s_Keys[256];
+	static std::array<int, 2> s_Mouse;
+};
+
+#endif // !OWL_WINDOW_H
