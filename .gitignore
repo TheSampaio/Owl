@@ -2,6 +2,7 @@
 .vs/
 x64/
 Owl/x64/
+Owl/_Data/
 
 # Files
 *.user
