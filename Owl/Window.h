@@ -1,6 +1,8 @@
 #ifndef OWL_WINDOW_H
 #define OWL_WINDOW_H
 
+#include "Default.h"
+
 class CWindow
 {
 public:
@@ -14,13 +16,12 @@ public:
 	CWindow();
 
 	// Main methods
-	bool Create();
-	void Close();
+	bool Create();	
+	inline void Close() { PostMessage(m_Id, WM_DESTROY, NULL, NULL); }
 
 	// Input methods
-	bool GetKeyTap(int KeyCode);
-	inline bool GetKeyPress(int KeyCode)		 { return s_Keys[KeyCode]; }
-	inline bool GetKeyRelease(int KeyCode)		 { return !s_Keys[KeyCode]; }
+	inline bool GetKeyPressed(int KeyCode)		 { return s_Keys[KeyCode]; }
+	inline bool GetKeyReleased(int KeyCode)		 { return !s_Keys[KeyCode]; }
 	inline std::array<int, 2> GetMousePosition() { return s_Mouse; }
 
 	// Get methods

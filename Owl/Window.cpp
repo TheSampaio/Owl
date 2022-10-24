@@ -27,8 +27,8 @@ CWindow::CWindow()
 	m_Position[1] = 0;
 
 	// CWindow's icon and cursor
-	m_Icon = NULL;
-	m_Cursor = NULL;
+	m_Icon = LoadIcon(m_Instance, MAKEINTRESOURCE(IDI_ICON));
+	m_Cursor = LoadCursor(m_Instance, MAKEINTRESOURCE(IDC_CURSOR));
 
 	// CWindow's display mode and background's color
 	m_DisplayMode = EDisplayMode::WINDOWED;
@@ -96,32 +96,6 @@ bool CWindow::Create()
 	return (m_Id) ? true : false;
 }
 
-void CWindow::Close()
-{
-	// Send destroy message to the current window
-	PostMessage(m_Id, WM_DESTROY, NULL, NULL);
-}
-
-// Detect if a key was pressed and released
-bool CWindow::GetKeyTap(int KeyCode)
-{
-	bool Button = false;
-
-	if (GetKeyPress(KeyCode))
-	{
-		Button = true;
-	}
-
-	if (Button)
-	{
-		if (GetKeyRelease(KeyCode))
-		{
-			Button = false;
-			return s_Keys[KeyCode];
-		}
-	}
-}
-
 void CWindow::SetSize(unsigned int Width, unsigned int Height)
 {
 	// Window's size
@@ -184,6 +158,8 @@ LRESULT CWindow::Procedure(HWND hWindow, UINT uMessage, WPARAM wParam, LPARAM lP
 			}
 		}
 
+		return 0;
+
 	// If keyboard's key was released
 	case WM_KEYUP:
 	case WM_SYSKEYUP:
@@ -220,6 +196,12 @@ LRESULT CWindow::Procedure(HWND hWindow, UINT uMessage, WPARAM wParam, LPARAM lP
 		return 0;
 
 	/* ========== WINDOW ==================== */
+	// If window was closed
+	case WM_QUIT:
+	case WM_CLOSE:
+		PostMessage(hWindow, WM_DESTROY, NULL, NULL);
+		return 0;
+
 	// If window was destroyed
 	case WM_DESTROY:
 		PostQuitMessage(NULL);
