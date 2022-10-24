@@ -2,7 +2,6 @@
 #define OWL_APPLICATION_H
 
 #include "PCH.h"
-#include "Game.h"
 #include "Window.h"
 
 class CApplication
@@ -12,15 +11,14 @@ public:
 	~CApplication();
 
 	// Main methods
-	int Start(GGame* Game);
+	int Start();
 
 	// Get methods
 	CWindow*& GetWindow();
 
 private:
-	int Run();
+	int Update();
 
-	static GGame* s_Game;
 	static CWindow* s_Window;
 };
 

@@ -1,4 +1,0 @@
-#include "Default.h"
-
-IDI_ICON	ICON	"_Data\\Icons\\owl-icon.ico"
-IDC_CURSOR	CURSOR	"_Data\\Cursors\\arrow-cursor.cur"
