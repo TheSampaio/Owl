@@ -33,6 +33,7 @@ public:
 	inline std::array<unsigned int, 2> GetSize() const		{ return m_Size; }
 	inline std::array<unsigned int, 2> GetPosition() const	{ return m_Position; }
 	inline std::array<unsigned int, 2> GetCenter() const	{ return m_Center; }
+	inline unsigned int GetDisplayMode() const				{ return m_DisplayMode; }
 
 	// Set methods
 	void SetSize(unsigned int Width, unsigned int Height);

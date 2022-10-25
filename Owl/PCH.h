@@ -7,6 +7,8 @@
 #include <string>
 
 // External Libraries
+#include <dxgi.h>
+#include <d3d11.h>
 
 // Engine Types
 #include "Types.h"

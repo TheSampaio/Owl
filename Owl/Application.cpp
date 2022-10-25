@@ -3,15 +3,20 @@
 
 // Initialize window's static pointer
 GGame* CApplication::s_Game = nullptr;
+RGraphics* CApplication::s_Graphics = nullptr;
 CWindow* CApplication::s_Window = nullptr;
 
+// Dynamic alocates memory
 CApplication::CApplication()
 {
+	s_Graphics = new RGraphics;
 	s_Window = new CWindow;
 }
 
+// Deletes alocated memory
 CApplication::~CApplication()
 {
+	delete s_Graphics;
 	delete s_Window;
 }
 
@@ -25,6 +30,13 @@ int CApplication::Start(GGame* World)
 	if (!s_Window->Create())
 	{
 		MessageBox(NULL, L"Failed to create window.", L"Owl Engine", MB_OK | MB_ICONERROR);
+		return EXIT_FAILURE;
+	}
+
+	// Initializes graphics and verify if was succeed
+	if (!s_Graphics->Initialize(s_Window))
+	{
+		MessageBox(NULL, L"Failed to initilize graphic device.", L"Owl Engine", MB_OK | MB_ICONERROR);
 		return EXIT_FAILURE;
 	}
 
@@ -55,18 +67,20 @@ int CApplication::Run()
 
 		else
 		{
+			// Updates the game and clear back buffer
 			s_Game->Update(1.0f);
-			// TODO: Renderer->Clear();
+			s_Graphics->ClearBackBuffer();
 
+			// Draw on screen and swap screen's buffers
 			s_Game->Draw();
-			// TODO: Renderer->Show();
+			s_Graphics->SwapBuffers();
 
 			// """V-Sync"""
 			Sleep(16);
 		}
 	} while (Message.message != WM_QUIT);
 
+	// Finishes the game
 	s_Game->Finish();
-
 	return static_cast<int>(Message.wParam);
 }

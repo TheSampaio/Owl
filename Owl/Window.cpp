@@ -128,6 +128,11 @@ void CWindow::SetDisplayMode(unsigned int DisplayMode)
 		m_Size[0] = m_Screen[0];
 		m_Size[1] = m_Screen[1];
 
+
+		// Setup window's new position
+		m_Position[0] = 0;
+		m_Position[1] = 0;
+
 		m_Style = WS_POPUP | WS_EX_TOPMOST | WS_VISIBLE;
 	}
 }
