@@ -1,5 +1,6 @@
 #include "PCH.h"
 #include "Window.h"
+#include "Application.h"
 
 bool CWindow::s_Keys[256] = { false };
 std::array<int, 2> CWindow::s_Mouse = { 0 };
@@ -201,6 +202,16 @@ LRESULT CWindow::Procedure(HWND hWindow, UINT uMessage, WPARAM wParam, LPARAM lP
 		return 0;
 
 	/* ========== WINDOW ==================== */
+	// If window was focused
+	case WM_SETFOCUS:
+		CApplication::Resume();
+		return 0;
+
+	// If window was NOT focused
+	case WM_KILLFOCUS:
+		CApplication::Pause();
+		return 0;
+
 	// If window was closed
 	case WM_QUIT:
 	case WM_CLOSE:

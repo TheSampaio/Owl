@@ -9,7 +9,7 @@ class GMainGame : public GGame
 {
 public:
 	void Start();
-	void Update(Float DeltaTime);
+	void Update(Float& DeltaTime);
 	void Draw();
 	void Finish();
 
@@ -24,7 +24,7 @@ void GMainGame::Start()
 }
 
 // Main game's update method
-void GMainGame::Update(Float DeltaTime)
+void GMainGame::Update(Float& DeltaTime)
 {
 	if (GetWindow()->GetKeyPressed(VK_ESCAPE)) { Button = true; }
 

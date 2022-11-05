@@ -11,10 +11,10 @@ public:
 
 	virtual void OnPause();
 
-	virtual void Start()				 PURE;
-	virtual void Update(float DeltaTime) PURE;
-	virtual void Draw()					 PURE;
-	virtual void Finish()				 PURE;
+	virtual void Start()				  PURE;
+	virtual void Update(float& DeltaTime) PURE;
+	virtual void Draw()					  PURE;
+	virtual void Finish()				  PURE;
 
 	inline void SetWindow(CWindow*& Window) { s_Window = Window; }
 
