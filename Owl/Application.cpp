@@ -2,30 +2,32 @@
 #include "Application.h"
 
 // Initialize window's static attributes
-GGame*     CApplication::s_Game = nullptr;
-RGraphics* CApplication::s_Graphics = nullptr;
-CWindow*   CApplication::s_Window = nullptr;
+Input*	  Application::s_Input = nullptr;
+Game*     Application::s_Game = nullptr;
+Graphics* Application::s_Graphics = nullptr;
+Window*   Application::s_Window = nullptr;
 
-ITimer CApplication::s_Timer;
-float  CApplication::s_DeltaTime = 0.0f;
-bool   CApplication::s_bIsPaused = false;
+Timer Application::s_Timer;
+float  Application::s_DeltaTime = 0.0f;
+bool   Application::s_bIsPaused = false;
 
 // Dynamic alocates memory
-CApplication::CApplication()
+Application::Application()
 {
-	s_Graphics = new RGraphics;
-	s_Window = new CWindow;
+	s_Graphics = new Graphics;
+	s_Input = new Input;
+	s_Window = new Window(s_Input);
 }
 
 // Deletes alocated memory
-CApplication::~CApplication()
+Application::~Application()
 {
 	delete s_Graphics;
 	delete s_Window;
 }
 
 // Start the application
-int CApplication::Start(GGame* World)
+int Application::Start(Game* World)
 {
 	s_Game = World;
 	s_Game->SetWindow(s_Window);
@@ -53,20 +55,20 @@ int CApplication::Start(GGame* World)
 	return State;
 }
 
-void CApplication::Pause()
+void Application::Pause()
 {
 	s_bIsPaused = true;
 	s_Timer.Stop();
 }
 
-void CApplication::Resume()
+void Application::Resume()
 {
 	s_bIsPaused = false;
 	s_Timer.Start();
 }
 
 // Runs the application
-int CApplication::Run()
+int Application::Run()
 {
 	bool bPauseControl = true;
 	MSG Message{ NULL };
@@ -77,6 +79,7 @@ int CApplication::Run()
 	// === Main Loop (Gameloop)
 	do
 	{
+		// Process window's events
 		if (PeekMessage(&Message, NULL, 0, 0, PM_REMOVE))
 		{
 			TranslateMessage(&Message);
@@ -85,20 +88,20 @@ int CApplication::Run()
 
 		else
 		{
+			// Window's pause contrller
 			if (bPauseControl)
 			{
-				if (s_Window->GetKeyPressed(VK_PAUSE))
+				if (s_Input->GetKeyTaped(VK_PAUSE))
 				{
 					s_bIsPaused = !s_bIsPaused;
-					bPauseControl = false;
-
+					bPauseControl = !bPauseControl;
 					(s_bIsPaused) ? s_Timer.Stop() : s_Timer.Start();
 				}
 			}
 
 			else
 			{
-				if (s_Window->GetKeyReleased(VK_PAUSE)) { bPauseControl = true; }
+				bPauseControl = true;
 			}
 
 			if (!s_bIsPaused)
@@ -125,7 +128,7 @@ int CApplication::Run()
 	return static_cast<int>(Message.wParam);
 }
 
-float& CApplication::GetDeltaTime()
+float& Application::GetDeltaTime()
 {
 #ifdef _DEBUG
 	static float s_TotalTime = 0.0f;

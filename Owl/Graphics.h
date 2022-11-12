@@ -11,11 +11,11 @@ void ReleaseDevice(TReturnType* Device)
 	Device = nullptr;
 }
 
-class RGraphics
+class Graphics
 {
 public:
-	RGraphics();
-	~RGraphics();
+	Graphics();
+	~Graphics();
 
 	// Static attributes
 	static ID3D11Device* s_Device;
@@ -23,7 +23,7 @@ public:
 	static D3D11_VIEWPORT s_Viewport;
 
 	// Main methods
-	bool Initialize(CWindow*& Window);
+	bool Initialize(Window*& Window);
 
 	inline void SwapBuffers() { m_SwapChain->Present(m_VSync, NULL); s_Context->OMSetRenderTargets(1, &m_RenderTargetView, nullptr); }
 	inline void ClearBackBuffer() { s_Context->ClearRenderTargetView(m_RenderTargetView, m_BackgroundColor); }

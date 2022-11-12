@@ -2,12 +2,12 @@
 #include "Graphics.h"
 
 // Initializes static attributes
-ID3D11Device* RGraphics::s_Device = nullptr;
-ID3D11DeviceContext* RGraphics::s_Context = nullptr;
-D3D11_VIEWPORT RGraphics::s_Viewport {NULL};
+ID3D11Device* Graphics::s_Device = nullptr;
+ID3D11DeviceContext* Graphics::s_Context = nullptr;
+D3D11_VIEWPORT Graphics::s_Viewport {NULL};
 
 // Initilizes attributes
-RGraphics::RGraphics()
+Graphics::Graphics()
 {
 	m_SwapChain = nullptr;
 	m_RenderTargetView = nullptr;
@@ -23,7 +23,7 @@ RGraphics::RGraphics()
 }
 
 // Destroy pointers
-RGraphics::~RGraphics()
+Graphics::~Graphics()
 {
 	if (m_BlendState)		{ ReleaseDevice(m_BlendState); }
 	if (m_RenderTargetView) { ReleaseDevice(m_RenderTargetView); }
@@ -33,7 +33,7 @@ RGraphics::~RGraphics()
 }
 
 // Initializes "Graphics" class
-bool RGraphics::Initialize(CWindow*& Window)
+bool Graphics::Initialize(Window*& Window)
 {
 	unsigned int CreateDeviceFlags = 0;
 
@@ -86,7 +86,7 @@ bool RGraphics::Initialize(CWindow*& Window)
 	SwapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	SwapChainDesc.BufferCount = 2;
 	SwapChainDesc.OutputWindow = Window->GetId();
-	SwapChainDesc.Windowed = (Window->GetDisplayMode() != CWindow::EDisplayMode::FULLSCREEN);
+	SwapChainDesc.Windowed = (Window->GetDisplayMode() != Window::EDisplayMode::FULLSCREEN);
 	SwapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 	SwapChainDesc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 

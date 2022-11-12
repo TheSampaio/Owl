@@ -1,7 +1,7 @@
 #include "PCH.h"
 #include "Timer.h"
 
-ITimer::ITimer()
+Timer::Timer()
 	: m_bStoped(false)
 {
 	QueryPerformanceFrequency(&m_Frequency);
@@ -10,7 +10,7 @@ ITimer::ITimer()
 	ZeroMemory(&m_End, sizeof(m_End));
 }
 
-void ITimer::Start()
+void Timer::Start()
 {
 	if (m_bStoped)
 	{
@@ -27,7 +27,7 @@ void ITimer::Start()
 	}
 }
 
-void ITimer::Stop()
+void Timer::Stop()
 {
 	if (!m_bStoped)
 	{
@@ -36,7 +36,7 @@ void ITimer::Stop()
 	}
 }
 
-float ITimer::Reset()
+float Timer::Reset()
 {
 	long long ElapsedTime = 0;
 
@@ -57,7 +57,7 @@ float ITimer::Reset()
 	return static_cast<float>(ElapsedTime / static_cast<double>(m_Frequency.QuadPart));
 }
 
-float ITimer::GetElapsedTime()
+float Timer::GetElapsedTime()
 {
 	long long ElapsedTime = 0;
 

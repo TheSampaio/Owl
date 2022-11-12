@@ -6,18 +6,18 @@
 #include "Timer.h"
 #include "Window.h"
 
-class CApplication
+class Application
 {
 public:
-	CApplication();
-	~CApplication();	
+	Application();
+	~Application();	
 
 	// Main methods
-	int Start(GGame* Game);
+	int Start(Game* Game);
 
 	// Get methods
-	inline RGraphics*& GetGraphics() const { return s_Graphics; }
-	inline CWindow*& GetWindow() const	   { return s_Window; }
+	inline Graphics*& GetGraphics() const { return s_Graphics; }
+	inline Window*& GetWindow() const	   { return s_Window; }
 
 	// Static methods
 	static void Pause();
@@ -31,10 +31,11 @@ private:
 	static bool s_bIsPaused;
 	static float s_DeltaTime;
 
-	static GGame* s_Game;
-	static RGraphics* s_Graphics;
-	static ITimer s_Timer;
-	static CWindow* s_Window;
+	static Input* s_Input;
+	static Game* s_Game;
+	static Graphics* s_Graphics;
+	static Timer s_Timer;
+	static Window* s_Window;
 };
 
 #endif // !OWL_APPLICATION_H

@@ -1,10 +1,10 @@
 #ifndef OWL_TIMER_H
 #define OWL_TIMER_H
 
-class ITimer
+class Timer
 {
 public:
-	ITimer();
+	Timer();
 
 	void Start();
 	void Stop();

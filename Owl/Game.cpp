@@ -2,17 +2,18 @@
 #include "Game.h"
 #include "Application.h"
 
-CWindow* GGame::s_Window = nullptr;
+Input* Game::s_Input = nullptr;
+Window* Game::s_Window = nullptr;
 
-GGame::GGame()
+Game::Game()
 {
 }
 
-GGame::~GGame()
+Game::~Game()
 {
 }
 
-void GGame::OnPause()
+void Game::OnPause()
 {
 	Sleep(10);
 }
