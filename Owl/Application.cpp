@@ -23,6 +23,7 @@ Application::Application()
 Application::~Application()
 {
 	delete s_Graphics;
+	delete s_Input;
 	delete s_Window;
 }
 
