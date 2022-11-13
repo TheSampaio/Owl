@@ -1,8 +1,8 @@
-#ifndef OWL_APPLICATION_H
-#define OWL_APPLICATION_H
+#pragma once
 
 #include "Game.h"
 #include "Graphics.h"
+#include "Renderer.h"
 #include "Timer.h"
 #include "Window.h"
 
@@ -17,11 +17,14 @@ public:
 
 	// Get methods
 	inline Graphics*& GetGraphics() const { return s_Graphics; }
-	inline Window*& GetWindow() const	   { return s_Window; }
+	inline Renderer*& GetRenderer() const { return s_Renderer; }
+	inline Window*& GetWindow() const	  { return s_Window; }
 
 	// Static methods
 	static void Pause();
 	static void Resume();
+
+	friend void Sprite::Draw(float X, float Y, float Z);
 
 private:
 	int Run();
@@ -34,8 +37,7 @@ private:
 	static Input* s_Input;
 	static Game* s_Game;
 	static Graphics* s_Graphics;
+	static Renderer* s_Renderer;
 	static Timer s_Timer;
 	static Window* s_Window;
 };
-
-#endif // !OWL_APPLICATION_H

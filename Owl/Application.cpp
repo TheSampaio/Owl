@@ -5,6 +5,7 @@
 Input*	  Application::s_Input = nullptr;
 Game*     Application::s_Game = nullptr;
 Graphics* Application::s_Graphics = nullptr;
+Renderer* Application::s_Renderer = nullptr;
 Window*   Application::s_Window = nullptr;
 
 Timer Application::s_Timer;
@@ -15,6 +16,7 @@ bool   Application::s_bIsPaused = false;
 Application::Application()
 {
 	s_Graphics = new Graphics;
+	s_Renderer = new Renderer;
 	s_Input = new Input;
 	s_Window = new Window(s_Input);
 }
@@ -22,7 +24,9 @@ Application::Application()
 // Deletes alocated memory
 Application::~Application()
 {
+	delete s_Game;
 	delete s_Graphics;
+	delete s_Renderer;
 	delete s_Input;
 	delete s_Window;
 }
@@ -44,6 +48,12 @@ int Application::Start(Game* World)
 	if (!s_Graphics->Initialize(s_Window))
 	{
 		MessageBox(NULL, L"Failed to initilize graphic device.", L"Owl Engine", MB_OK | MB_ICONERROR);
+		return EXIT_FAILURE;
+	}
+
+	if (!s_Renderer->Initialize(s_Window, s_Graphics))
+	{
+		MessageBox(NULL, L"Failed to initilize renderer.", L"Owl Engine", MB_OK | MB_ICONERROR);
 		return EXIT_FAILURE;
 	}
 
@@ -113,6 +123,7 @@ int Application::Run()
 
 				// Draw on screen and swap screen's buffers
 				s_Game->Draw();
+				s_Renderer->Render();
 				s_Graphics->SwapBuffers();
 			}
 

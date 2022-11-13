@@ -1,5 +1,4 @@
-#ifndef OWL_TYPES_H
-#define OWL_TYPES_H
+#pragma once
 
 namespace OwlTypes {
 
@@ -35,5 +34,3 @@ namespace OwlTypes {
 	// String
 	typedef std::string String;
 }
-
-#endif // !OWL_TYPES_H

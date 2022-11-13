@@ -1,5 +1,4 @@
-#ifndef OWL_GAME_H
-#define OWL_GAME_H
+#pragma once
 
 #include "Window.h"
 
@@ -26,5 +25,3 @@ private:
 	static Input* s_Input;
 	static Window* s_Window;
 };
-
-#endif // !OWL_GAME_H

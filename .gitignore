@@ -3,6 +3,8 @@
 x64/
 Owl/x64/
 Owl/_Data/
+Resources/
+Shaders/
 
 # Files
 *.user

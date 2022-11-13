@@ -1,5 +1,4 @@
-#ifndef OWL_WINDOW_H
-#define OWL_WINDOW_H
+#pragma once
 
 #include "Default.h"
 #include "Input.h"
@@ -60,5 +59,3 @@ private:
 	
 	static Input* s_Input;
 };
-
-#endif // !OWL_WINDOW_H

@@ -1,5 +1,4 @@
-#ifndef OWL_INPUT_H
-#define OWL_INPUT_H
+#pragma once
 
 class Input
 {
@@ -27,5 +26,3 @@ private:
 	static std::array<int, 2> s_MousePosition;
 
 };
-
-#endif // !OWL_INPUT_H

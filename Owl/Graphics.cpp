@@ -25,11 +25,11 @@ Graphics::Graphics()
 // Destroy pointers
 Graphics::~Graphics()
 {
-	if (m_BlendState)		{ ReleaseDevice(m_BlendState); }
-	if (m_RenderTargetView) { ReleaseDevice(m_RenderTargetView); }
-	if (m_SwapChain)		{ m_SwapChain->SetFullscreenState(false, nullptr); ReleaseDevice(m_SwapChain); }
-	if (s_Context)			{ s_Context->ClearState(); ReleaseDevice(s_Context); }
-	if (s_Device)			{ ReleaseDevice(s_Device); }
+	if (m_BlendState)		{ ReleaseComponent(m_BlendState); }
+	if (m_RenderTargetView) { ReleaseComponent(m_RenderTargetView); }
+	if (m_SwapChain)		{ m_SwapChain->SetFullscreenState(false, nullptr); ReleaseComponent(m_SwapChain); }
+	if (s_Context)			{ s_Context->ClearState(); ReleaseComponent(s_Context); }
+	if (s_Device)			{ ReleaseComponent(s_Device); }
 }
 
 // Initializes "Graphics" class
@@ -43,10 +43,10 @@ bool Graphics::Initialize(Window*& Window)
 #endif
 
 	// Create D3D11 device AS hardware
-	if FAILED(D3D11CreateDevice(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, CreateDeviceFlags, nullptr, 0, D3D11_SDK_VERSION, &s_Device, &m_FeatureLevel, &s_Context))
+	if (FAILED(D3D11CreateDevice(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, CreateDeviceFlags, nullptr, 0, D3D11_SDK_VERSION, &s_Device, &m_FeatureLevel, &s_Context)))
 	{
 		// Create D3D11 device AS software
-		if FAILED(D3D11CreateDevice(NULL, D3D_DRIVER_TYPE_WARP, NULL, CreateDeviceFlags, nullptr, 0, D3D11_SDK_VERSION, &s_Device, &m_FeatureLevel, &s_Context))
+		if (FAILED(D3D11CreateDevice(NULL, D3D_DRIVER_TYPE_WARP, NULL, CreateDeviceFlags, nullptr, 0, D3D11_SDK_VERSION, &s_Device, &m_FeatureLevel, &s_Context)))
 		{
 			return false;
 		}
@@ -64,15 +64,15 @@ bool Graphics::Initialize(Window*& Window)
 
 	// Gets device to get adapter
 	IDXGIDevice* DXGIDevice = nullptr;
-	if FAILED(s_Device->QueryInterface(__uuidof(IDXGIDevice), (void**) &DXGIDevice)) { return false; }
+	if (FAILED(s_Device->QueryInterface(__uuidof(IDXGIDevice), (void**)&DXGIDevice))) { return false; }
 
 	// Gets adapter to get factory
 	IDXGIAdapter* DXGIAdapter = nullptr;
-	if FAILED(DXGIDevice->GetParent(__uuidof(IDXGIAdapter), (void**) &DXGIAdapter)) { return false; }
+	if (FAILED(DXGIDevice->GetParent(__uuidof(IDXGIAdapter), (void**)&DXGIAdapter))) { return false; }
 
 	// Gets factory to create a swap chain
 	IDXGIFactory* DXGIFactory = nullptr;
-	if FAILED(DXGIAdapter->GetParent(__uuidof(IDXGIFactory), (void**) &DXGIFactory)) { return false; }
+	if (FAILED(DXGIAdapter->GetParent(__uuidof(IDXGIFactory), (void**)&DXGIFactory))) { return false; }
 
 	// Swap chain desc
 	DXGI_SWAP_CHAIN_DESC SwapChainDesc{ 0 };
@@ -91,13 +91,13 @@ bool Graphics::Initialize(Window*& Window)
 	SwapChainDesc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
 	// Creates a swap chain and associates it with a window
-	if FAILED(DXGIFactory->CreateSwapChain(s_Device, &SwapChainDesc, &m_SwapChain)) { return false; }
-	if FAILED(DXGIFactory->MakeWindowAssociation(Window->GetId(), DXGI_MWA_NO_ALT_ENTER)) { return false; }
+	if (FAILED(DXGIFactory->CreateSwapChain(s_Device, &SwapChainDesc, &m_SwapChain))) { return false; }
+	if (FAILED(DXGIFactory->MakeWindowAssociation(Window->GetId(), DXGI_MWA_NO_ALT_ENTER))) { return false; }
 
 	// Render target view
 	ID3D11Texture2D* BackBuffer = nullptr;
-	if FAILED(m_SwapChain->GetBuffer(0, __uuidof(BackBuffer), (void**) &BackBuffer)) { return false; }
-	if FAILED(s_Device->CreateRenderTargetView(BackBuffer, nullptr, &m_RenderTargetView)) { return false; }
+	if (FAILED(m_SwapChain->GetBuffer(0, __uuidof(BackBuffer), (void**)&BackBuffer))) { return false; }
+	if (FAILED(s_Device->CreateRenderTargetView(BackBuffer, nullptr, &m_RenderTargetView))) { return false; }
 
 	// Setup render target view
 	s_Context->OMSetRenderTargets(1, &m_RenderTargetView, nullptr);
@@ -127,7 +127,7 @@ bool Graphics::Initialize(Window*& Window)
 	BlendStateDesc.RenderTarget[0].RenderTargetWriteMask = 0x0F;
 
 	// Create a blender state and setups it
-	if FAILED(s_Device->CreateBlendState(&BlendStateDesc, &m_BlendState)) { return false; }
+	if (FAILED(s_Device->CreateBlendState(&BlendStateDesc, &m_BlendState))) { return false; }
 	s_Context->OMSetBlendState(m_BlendState, nullptr, 0xffffffff);
 
 	// Release created pointers

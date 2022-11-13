@@ -4,7 +4,7 @@
 Input* Window::s_Input = nullptr;
 
 Window::Window(Input*& Input)
-	: m_Id(NULL), m_Instance(GetModuleHandle(NULL)), m_Style(WS_OVERLAPPED | WS_SYSMENU | WS_MINIMIZEBOX | WS_EX_TOPMOST | WS_VISIBLE)
+	: m_Id{ NULL }, m_Instance{ GetModuleHandle(NULL) }, m_Style{ WS_OVERLAPPED | WS_SYSMENU | WS_MINIMIZEBOX | WS_EX_TOPMOST | WS_VISIBLE }
 {
 	// Title
 	m_Title = std::string("Owl Engine");

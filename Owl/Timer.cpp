@@ -2,7 +2,7 @@
 #include "Timer.h"
 
 Timer::Timer()
-	: m_bStoped(false)
+	: m_bStoped{ false }
 {
 	QueryPerformanceFrequency(&m_Frequency);
 
