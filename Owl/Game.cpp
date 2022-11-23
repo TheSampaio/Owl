@@ -2,16 +2,8 @@
 #include "Game.h"
 #include "Application.h"
 
-Input* Game::s_Input = nullptr;
-Window* Game::s_Window = nullptr;
-
-Game::Game()
-{
-}
-
-Game::~Game()
-{
-}
+Input*&  Game::s_Input  = Application::s_Input;
+Window*& Game::s_Window = Application::s_Window;
 
 void Game::OnPause()
 {

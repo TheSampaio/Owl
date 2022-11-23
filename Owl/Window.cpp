@@ -1,11 +1,14 @@
 #include "PCH.h"
 #include "Window.h"
 
-Input* Window::s_Input = nullptr;
+#include "Application.h"
 
-Window::Window(Input*& Input)
-	: m_Id{ NULL }, m_Instance{ GetModuleHandle(NULL) }, m_Style{ WS_OVERLAPPED | WS_SYSMENU | WS_MINIMIZEBOX | WS_EX_TOPMOST | WS_VISIBLE }
+Window::Window()
+	: m_Id{ nullptr }, m_Icon{ nullptr }, m_Cursor{ nullptr }, m_Instance{ GetModuleHandle(nullptr) }
 {
+	// Default style
+	m_Style = WS_OVERLAPPED | WS_SYSMENU | WS_MINIMIZEBOX | WS_EX_TOPMOST | WS_VISIBLE;
+
 	// Title
 	m_Title = std::string("Owl Engine");
 
@@ -25,36 +28,30 @@ Window::Window(Input*& Input)
 	m_Position[0] = 0;
 	m_Position[1] = 0;
 
-	// Window's icon and cursor
-	m_Icon = LoadIcon(m_Instance, MAKEINTRESOURCE(IDI_ICON));
-	m_Cursor = LoadCursor(m_Instance, MAKEINTRESOURCE(IDC_CURSOR));
-
 	// Window's display mode and background's color
-	m_DisplayMode = EDisplayMode::WINDOWED;
+	m_DisplayMode = EDisplayMode::IE_Windowed;
 	m_BackgroundColor = RGB(0, 0, 0);
-
-	s_Input = Input;
 }
 
 bool Window::Create()
 {
 	// Create and define window's class
-	WNDCLASSEX Window{ NULL };
-	Window.cbSize = sizeof(Window);
-	Window.lpfnWndProc = Input::Procedure;
-	Window.style = CS_HREDRAW | CS_VREDRAW;
-	Window.cbClsExtra = NULL;
-	Window.cbWndExtra = NULL;
-	Window.lpszMenuName = NULL;
-	Window.hCursor = m_Cursor;
-	Window.hIcon = m_Icon;
-	Window.hIconSm = m_Icon;
-	Window.hInstance = m_Instance;
-	Window.hbrBackground = static_cast<HBRUSH>(CreateSolidBrush(m_BackgroundColor));
-	Window.lpszClassName = L"BasicWindow";
+	WNDCLASSEX WindowClass{ NULL };
+	WindowClass.cbSize = sizeof(WindowClass);
+	WindowClass.lpfnWndProc = Application::s_Input->Procedure;
+	WindowClass.style = CS_HREDRAW | CS_VREDRAW;
+	WindowClass.cbClsExtra = NULL;
+	WindowClass.cbWndExtra = NULL;
+	WindowClass.lpszMenuName = NULL;
+	WindowClass.hCursor = m_Cursor;
+	WindowClass.hIcon = m_Icon;
+	WindowClass.hIconSm = m_Icon;
+	WindowClass.hInstance = m_Instance;
+	WindowClass.hbrBackground = static_cast<HBRUSH>(CreateSolidBrush(m_BackgroundColor));
+	WindowClass.lpszClassName = L"BasicWindow";
 
 	// Register window's class
-	(!RegisterClassEx(&Window)) ? false : true;
+	(!RegisterClassEx(&WindowClass)) ? false : true;
 
 	// Create window
 	m_Id = CreateWindowEx
@@ -72,7 +69,7 @@ bool Window::Create()
 	);
 
 	// Setup client area
-	if (m_DisplayMode == EDisplayMode::WINDOWED)
+	if (m_DisplayMode == EDisplayMode::IE_Windowed)
 	{
 		// Create new rect
 		RECT Rect{ 0, 0, static_cast<LONG>(m_Size[0]), static_cast<LONG>(m_Size[1]) };
@@ -87,8 +84,8 @@ bool Window::Create()
 		);
 
 		// Update window's position
-		m_Position[0] = (m_Screen[0] / 2) - ((Rect.right - Rect.left) / 2);
-		m_Position[1] = (m_Screen[1] / 2) - ((Rect.bottom - Rect.top) / 2);
+		m_Position[0] = (m_Screen[0] / 2) - static_cast<unsigned short>((Rect.right - Rect.left) / 2);
+		m_Position[1] = (m_Screen[1] / 2) - static_cast<unsigned short>((Rect.bottom - Rect.top) / 2);
 
 		// Apply changes
 		MoveWindow(m_Id, m_Position[0], m_Position[1], m_Size[0], m_Size[1], true);
@@ -97,7 +94,7 @@ bool Window::Create()
 	return (m_Id) ? true : false;
 }
 
-void Window::SetSize(unsigned int Width, unsigned int Height)
+void Window::SetSize(unsigned short Width, unsigned short Height)
 {
 	// Window's size
 	m_Size[0] = Width;
@@ -112,12 +109,12 @@ void Window::SetSize(unsigned int Width, unsigned int Height)
 	m_Position[1] = (GetSystemMetrics(SM_CYSCREEN) / 2) - (m_Size[1] / 2);
 }
 
-void Window::SetDisplayMode(unsigned int DisplayMode)
+void Window::SetDisplayMode(unsigned short DisplayMode)
 {
 	m_DisplayMode = DisplayMode;
 
 	// Windowed mode
-	if (m_DisplayMode == EDisplayMode::WINDOWED)
+	if (m_DisplayMode == EDisplayMode::IE_Windowed)
 	{
 		m_Style = WS_OVERLAPPED | WS_SYSMENU | WS_MINIMIZEBOX | WS_EX_TOPMOST | WS_VISIBLE;
 	}

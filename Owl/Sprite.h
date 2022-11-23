@@ -27,13 +27,13 @@ public:
 	Sprite(Image* Image);
 	~Sprite();
 
-	std::array<unsigned int, 2>& GetSize();
+	std::array<unsigned short, 2>& GetSize();
 	void Draw(float X, float Y, float Z = Layer::Middle);
 
 private:
 	SpriteData m_SpriteData;
-	bool m_bLocalImage;
 	Image* m_Image;
+	bool m_bLocalImage;
 
-	std::array<unsigned int, 2> m_Size;
+	std::array<unsigned short, 2> m_Size;
 };

@@ -1,0 +1,4 @@
+#include "Assets.h"
+
+IDI_ICON	ICON	"Resources\\Shank\\Icon.ico"
+IDC_CURSOR	CURSOR	"Resources\\Shank\\Cursor.cur"

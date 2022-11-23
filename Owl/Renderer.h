@@ -32,10 +32,10 @@ private:
 	ID3D11Buffer* m_ConstantBuffer;
 	unsigned int m_VertexBufferPosition;
 
-	static const unsigned int s_MinBatchSize;
-	static const unsigned int s_MaxBatchSize;
-	static const unsigned int s_SpriteVertices;
-	static const unsigned int s_SpriteIndices;
+	static const unsigned short s_MinBatchSize;
+	static const unsigned short s_MaxBatchSize;
+	static const unsigned short s_SpriteVertices;
+	static const unsigned short s_SpriteIndices;
 
 	std::vector<SpriteData*> SpriteVector;
 	

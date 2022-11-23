@@ -7,7 +7,7 @@ Image::Image(std::string FilePath)
 	: m_TextureView{ nullptr }
 {
 	D3D11CreateTextureFromFile(Graphics::s_Device, Graphics::s_Context, FilePath.c_str(), nullptr, &m_TextureView, m_Width, m_Height);
-	m_Size = { m_Width, m_Height };
+	m_Size = { static_cast<unsigned short>(m_Width), static_cast<unsigned short>(m_Height) };
 }
 
 Image::~Image()

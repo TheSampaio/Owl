@@ -18,13 +18,16 @@ public:
 	// Get methods
 	inline Graphics*& GetGraphics() const { return s_Graphics; }
 	inline Renderer*& GetRenderer() const { return s_Renderer; }
-	inline Window*& GetWindow() const	  { return s_Window; }
+	inline Window*& GetWindow()     const { return s_Window; }
 
 	// Static methods
 	static void Pause();
 	static void Resume();
 
-	friend void Sprite::Draw(float X, float Y, float Z);
+	// Friends
+	friend Game;
+	friend Sprite;
+	friend Window;
 
 private:
 	int Run();
@@ -38,6 +41,6 @@ private:
 	static Game* s_Game;
 	static Graphics* s_Graphics;
 	static Renderer* s_Renderer;
-	static Timer s_Timer;
 	static Window* s_Window;
+	static Timer s_Timer;
 };

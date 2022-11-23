@@ -1,13 +1,13 @@
 #include "PCH.h"
 #include "Renderer.h"
 
-const unsigned int Renderer::s_MinBatchSize = 128;
-const unsigned int Renderer::s_MaxBatchSize = 4096;
-const unsigned int Renderer::s_SpriteVertices = 4;
-const unsigned int Renderer::s_SpriteIndices = 6;
+const unsigned short Renderer::s_MinBatchSize = 128;
+const unsigned short Renderer::s_MaxBatchSize = 4096;
+const unsigned short Renderer::s_SpriteVertices = 4;
+const unsigned short Renderer::s_SpriteIndices = 6;
 
 Renderer::Renderer()
-	: m_InputLayout{ nullptr }, m_VertexShader{ nullptr }, m_PixelShader{ nullptr }, m_RasterizerState{ nullptr },
+	: m_InputLayout{ nullptr },  m_VertexShader{ nullptr }, m_PixelShader{ nullptr }, m_RasterizerState{ nullptr },
       m_SamplerState{ nullptr }, m_VertexBuffer{ nullptr }, m_IndexBuffer{ nullptr }, m_ConstantBuffer{ nullptr }
 {
 	m_VertexBufferPosition = 0;
@@ -221,7 +221,7 @@ void Renderer::RenderBatch(ID3D11ShaderResourceView* Texture, SpriteData** Sprit
         D3D11_MAPPED_SUBRESOURCE MappedBuffer;
         Graphics::s_Context->Map(m_VertexBuffer, 0, MapType, 0, &MappedBuffer);
 
-        Vertex* Vertices = static_cast<Vertex*>(MappedBuffer.pData) + m_VertexBufferPosition * s_SpriteVertices;
+        Vertex* Vertices = static_cast<Vertex*>(MappedBuffer.pData) + static_cast<unsigned long long>(m_VertexBufferPosition) * s_SpriteVertices;
 
         for (unsigned int i = 0; i < BatchSize; ++i)
         {
@@ -318,7 +318,6 @@ void Renderer::RenderBatch(ID3D11ShaderResourceView* Texture, SpriteData** Sprit
         m_VertexBufferPosition += BatchSize;
 
         Sprites += BatchSize;
-
         Count -= BatchSize;
     }
 }

@@ -3,32 +3,24 @@
 
 #include "Application.h"
 
-bool Input::s_Flags[256] = {false};
-bool Input::s_Keys[256] = { false };
+bool Input::s_bFlags[256] = { false };
+bool Input::s_bKeys[256] = { false };
 
-short Input::s_MouseWheel = 0;
+short              Input::s_MouseWheel = 0;
 std::array<int, 2> Input::s_MousePosition = { 0 };
-
-Input::Input()
-{
-}
-
-Input::~Input()
-{
-}
 
 bool Input::GetKeyTaped(int KeyCode)
 {
 	if (GetKeyPressed(KeyCode))
 	{
-		s_Flags[KeyCode] = true;
+		s_bFlags[KeyCode] = true;
 	}
 
-	else if(s_Flags[KeyCode])
+	else if(s_bFlags[KeyCode])
 	{
 		if (GetKeyReleased(KeyCode))
 		{
-			s_Flags[KeyCode] = false;
+			s_bFlags[KeyCode] = false;
 			return true;
 		}		
 	}
@@ -44,9 +36,9 @@ LRESULT Input::Procedure(HWND hWindow, UINT uMessage, WPARAM wParam, LPARAM lPar
 		// If keyboard's key was pressed
 	case WM_KEYDOWN:
 	case WM_SYSKEYDOWN:
-		s_Keys[wParam] = true;
+		s_bKeys[wParam] = true;
 
-		if (s_Keys[VK_F4])
+		if (s_bKeys[VK_F4])
 		{
 			// Ask if user want to close the window
 			if (MessageBox(hWindow, L"Do you really want to close the window?", L"Window", MB_YESNO | MB_DEFBUTTON2 | MB_ICONWARNING) == IDYES)
@@ -57,7 +49,7 @@ LRESULT Input::Procedure(HWND hWindow, UINT uMessage, WPARAM wParam, LPARAM lPar
 
 			else
 			{
-				s_Keys[VK_F4] = false;
+				s_bKeys[VK_F4] = false;
 				return 0;
 			}
 		}
@@ -67,7 +59,7 @@ LRESULT Input::Procedure(HWND hWindow, UINT uMessage, WPARAM wParam, LPARAM lPar
 		// If keyboard's key was released
 	case WM_KEYUP:
 	case WM_SYSKEYUP:
-		s_Keys[wParam] = false;
+		s_bKeys[wParam] = false;
 		return 0;
 
 		/* ========== MOUSE ==================== */
@@ -80,23 +72,28 @@ LRESULT Input::Procedure(HWND hWindow, UINT uMessage, WPARAM wParam, LPARAM lPar
 		// If mouse's left button pressed
 	case WM_LBUTTONDOWN:
 	case WM_LBUTTONDBLCLK:
-		s_Keys[VK_LBUTTON] = true;
+		s_bKeys[VK_LBUTTON] = true;
 		return 0;
 
 		// If mouse's left button released
 	case WM_LBUTTONUP:
-		s_Keys[VK_LBUTTON] = false;
+		s_bKeys[VK_LBUTTON] = false;
 		return 0;
 
 		// If mouse's right button pressed
 	case WM_RBUTTONDOWN:
 	case WM_RBUTTONDBLCLK:
-		s_Keys[VK_RBUTTON] = true;
+		s_bKeys[VK_RBUTTON] = true;
 		return 0;
 
 		// If mouse's right button released
 	case WM_RBUTTONUP:
-		s_Keys[VK_RBUTTON] = false;
+		s_bKeys[VK_RBUTTON] = false;
+		return 0;
+
+		// If mouse's wheels scrolled
+	case WM_MOUSEHWHEEL:
+		s_MouseWheel = GET_WHEEL_DELTA_WPARAM(wParam);
 		return 0;
 
 		/* ========== WINDOW ==================== */

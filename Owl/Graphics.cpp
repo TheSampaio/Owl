@@ -4,38 +4,34 @@
 // Initializes static attributes
 ID3D11Device* Graphics::s_Device = nullptr;
 ID3D11DeviceContext* Graphics::s_Context = nullptr;
-D3D11_VIEWPORT Graphics::s_Viewport {NULL};
+D3D11_VIEWPORT Graphics::s_Viewport{ NULL };
 
 // Initilizes attributes
 Graphics::Graphics()
+	: m_SwapChain{ nullptr }, m_RenderTargetView{ nullptr }, m_BlendState{ nullptr }, m_VSync{ true }
 {
-	m_SwapChain = nullptr;
-	m_RenderTargetView = nullptr;
-	m_BlendState = nullptr;
 	m_FeatureLevel = D3D_FEATURE_LEVEL_11_0;
 
 	m_BackgroundColor[0] = 0.0f;
 	m_BackgroundColor[1] = 0.0f;
 	m_BackgroundColor[2] = 0.0f;
 	m_BackgroundColor[3] = 0.0f;
-
-	m_VSync = true;
 }
 
 // Destroy pointers
 Graphics::~Graphics()
 {
-	if (m_BlendState)		{ ReleaseComponent(m_BlendState); }
+	if (m_BlendState)       { ReleaseComponent(m_BlendState); }
 	if (m_RenderTargetView) { ReleaseComponent(m_RenderTargetView); }
-	if (m_SwapChain)		{ m_SwapChain->SetFullscreenState(false, nullptr); ReleaseComponent(m_SwapChain); }
-	if (s_Context)			{ s_Context->ClearState(); ReleaseComponent(s_Context); }
-	if (s_Device)			{ ReleaseComponent(s_Device); }
+	if (m_SwapChain)        { m_SwapChain->SetFullscreenState(false, nullptr); ReleaseComponent(m_SwapChain); }
+	if (s_Context)          { s_Context->ClearState(); ReleaseComponent(s_Context); }
+	if (s_Device)           { ReleaseComponent(s_Device); }
 }
 
 // Initializes "Graphics" class
 bool Graphics::Initialize(Window*& Window)
 {
-	unsigned int CreateDeviceFlags = 0;
+	unsigned short CreateDeviceFlags = 0;
 
 // if Visual Studio's debug mode is true
 #ifdef _DEBUG
@@ -86,7 +82,7 @@ bool Graphics::Initialize(Window*& Window)
 	SwapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	SwapChainDesc.BufferCount = 2;
 	SwapChainDesc.OutputWindow = Window->GetId();
-	SwapChainDesc.Windowed = (Window->GetDisplayMode() != Window::EDisplayMode::FULLSCREEN);
+	SwapChainDesc.Windowed = (Window->GetDisplayMode() != Window::EDisplayMode::IE_Fullscreen);
 	SwapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 	SwapChainDesc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 

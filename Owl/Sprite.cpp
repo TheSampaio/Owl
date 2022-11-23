@@ -10,19 +10,17 @@ const float Layer::Lower  = 0.75f;
 const float Layer::Back   = 0.99f;
 
 Sprite::Sprite(std::string FilePath)
+    : m_bLocalImage{ true }
 {
     m_Image = new Image(FilePath);
-    m_bLocalImage = true;
-
     m_Size = { m_Image->GetSize()[0], m_Image->GetSize()[1] };
     m_SpriteData.Texture = m_Image->GetTexture();
 }
 
 Sprite::Sprite(Image* Image)
+    : m_bLocalImage{ false }
 {
     m_Image = Image;
-    m_bLocalImage = false;
-
     m_Size = { m_Image->GetSize()[0], m_Image->GetSize()[1] };
     m_SpriteData.Texture = m_Image->GetTexture();
 }
@@ -32,7 +30,7 @@ Sprite::~Sprite()
     if (m_bLocalImage) { delete m_Image; }
 }
 
-std::array<unsigned int, 2>& Sprite::GetSize()
+std::array<unsigned short, 2>& Sprite::GetSize()
 {
     return m_Size;
 }

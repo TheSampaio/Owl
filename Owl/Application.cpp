@@ -9,8 +9,8 @@ Renderer* Application::s_Renderer = nullptr;
 Window*   Application::s_Window = nullptr;
 
 Timer Application::s_Timer;
-float  Application::s_DeltaTime = 0.0f;
-bool   Application::s_bIsPaused = false;
+float Application::s_DeltaTime = 0.0f;
+bool  Application::s_bIsPaused = false;
 
 // Dynamic alocates memory
 Application::Application()
@@ -18,7 +18,7 @@ Application::Application()
 	s_Graphics = new Graphics;
 	s_Renderer = new Renderer;
 	s_Input = new Input;
-	s_Window = new Window(s_Input);
+	s_Window = new Window;
 }
 
 // Deletes alocated memory
@@ -35,7 +35,6 @@ Application::~Application()
 int Application::Start(Game* World)
 {
 	s_Game = World;
-	s_Game->SetWindow(s_Window);
 
 	// Create window and verify if was succeed
 	if (!s_Window->Create())
