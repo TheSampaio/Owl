@@ -1,0 +1,11 @@
+# Folders
+.vs/
+.vscode/
+_Output/
+ComputerGraphicsSDK/
+
+# Files
+*.user
+*.sln
+*.vcxproj
+*.vcxproj.filters
