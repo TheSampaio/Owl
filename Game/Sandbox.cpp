@@ -4,8 +4,10 @@ using namespace owl;
 
 Sandbox::Sandbox()
 {
+	Window::SetSize(800, 600);
 	Window::SetTitle("Sandbox");
-	Window::SetSize(1360, 768);
+	Window::SetDisplayMode(Windowed);
+	Window::SetInitializeMaximized(false);
 	Window::SetBackgroundColour(80, 0, 160);
 
 	Graphics::SetContextVersion(4, 0);

@@ -25,9 +25,11 @@ namespace owl
 
 		// SET methods
 
-		static void OWL_API SetTitle(std::string_view title) { GetInstance().m_Title = title; }
-		static void OWL_API SetSize(ushort width, ushort height) { GetInstance().m_Size = { width, height }; }
 		static void OWL_API SetBackgroundColour(ushort red, ushort green, ushort blue) { GetInstance().m_BackgroundColour = { red, green, blue }; }
+		static void OWL_API SetDisplayMode(EWindowDisplayMode mode) { GetInstance().m_DisplayMode = mode; }
+		static void OWL_API SetInitializeMaximized(bool maximize) { GetInstance().m_bMaximized = maximize; }
+		static void OWL_API SetSize(ushort width, ushort height) { GetInstance().m_Size = { width, height }; }
+		static void OWL_API SetTitle(std::string_view title) { GetInstance().m_Title = title; }
 
 		// Friends
 		friend class Application;
@@ -47,11 +49,17 @@ namespace owl
 
 	private:
 		GLFWwindow* m_Id;
+		GLFWmonitor* m_Monitor;
+
+		EWindowDisplayMode m_DisplayMode;
+
 		std::string m_Title;
 		std::array<ushort, 2> m_Size;
 		std::array<ushort, 2> m_Screen;
 		std::array<ushort, 2> m_Position;
 		std::array<ushort, 3> m_BackgroundColour;
+
+		bool m_bMaximized;
 
 		bool Create();
 		bool IClose();
