@@ -17,12 +17,12 @@ namespace owl
 		void OWL_API Stop();
 
 		// Resets the timer
-		float OWL_API Reset();
+		f32 OWL_API Reset();
 
 		// === GET methods ======
 
 		// Gets the elapsed time since the timer's start
-		float OWL_API GetElapsedTime();
+		f32 OWL_API GetElapsedTime();
 
 	private:
 		// Attributes

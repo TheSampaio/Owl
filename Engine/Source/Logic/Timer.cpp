@@ -42,7 +42,7 @@ void owl::Timer::Stop()
 	}
 }
 
-float owl::Timer::Reset()
+f32 owl::Timer::Reset()
 {
 	duration elapsedTime = nanoseconds(0);
 
@@ -70,7 +70,7 @@ float owl::Timer::Reset()
 	return static_cast<float>(duration<double>(elapsedTime).count());
 }
 
-float owl::Timer::GetElapsedTime()
+f32 owl::Timer::GetElapsedTime()
 {
 	duration elapsedTime = nanoseconds(0);
 

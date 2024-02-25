@@ -34,7 +34,7 @@ void Sandbox::OnFinalize()
 
 // === ENTRY POINT ===
 
-int main()
+i32 main()
 {
 	Application::Run(new Sandbox());
 }

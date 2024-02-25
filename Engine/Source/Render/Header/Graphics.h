@@ -17,11 +17,11 @@ namespace owl
 
 		// GET methods
 
-		static std::array<ushort, 2> OWL_API GetContextVersion() { return GetInstance().m_ContextVersion; }
+		static std::array<u8, 2> OWL_API GetContextVersion() { return GetInstance().m_ContextVersion; }
 
 		// SET methods
 
-		static void OWL_API SetContextVersion(ushort major, ushort minor) { GetInstance().m_ContextVersion = { major, minor }; }
+		static void OWL_API SetContextVersion(u8 major, u8 minor) { GetInstance().m_ContextVersion = { major, minor }; }
 
 		friend class Application;
 
@@ -37,7 +37,7 @@ namespace owl
 
 	private:
 		EVerticalSynchronizationMode m_VSyncMode;
-		std::array<ushort, 2> m_ContextVersion;
+		std::array<u8, 2> m_ContextVersion;
 
 		bool Initialize();
 		void ClearBuffers();

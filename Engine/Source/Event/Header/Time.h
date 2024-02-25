@@ -9,7 +9,7 @@ namespace owl
 		// === GET methods ===
 
 		// Gets the time passed in real life of a frame to another
-		static float GetDeltaTime() { return GetInstance().m_DeltaTime; }
+		static f32 GetDeltaTime() { return GetInstance().m_DeltaTime; }
 
 		// === Friends ===
 

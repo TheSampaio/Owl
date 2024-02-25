@@ -13,7 +13,7 @@ namespace owl
 	class Debug
 	{
 	public:
-		static void OWL_API Log(EDebugMode mode, const char* text, bool bBreakLine = true, bool bUseTag = true) { GetInstance().ILog(mode, text, bBreakLine, bUseTag); }
+		static void OWL_API Log(EDebugMode mode, str* text, bool bBreakLine = true, bool bUseTag = true) { GetInstance().ILog(mode, text, bBreakLine, bUseTag); }
 
 	protected:
 		Debug() {};
@@ -26,7 +26,7 @@ namespace owl
 		static Debug& GetInstance() { static Debug sInstance; return sInstance; }
 
 	private:
-		void ILog(EDebugMode mode, const char* text, bool bBreakLine, bool bUseTag);
+		void ILog(EDebugMode mode, str* text, bool bBreakLine, bool bUseTag);
 	};
 }
 

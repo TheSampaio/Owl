@@ -1,7 +1,7 @@
 #include "Engine.h"
 #include "Header/Debug.h"
 
-void owl::Debug::ILog(EDebugMode mode, const char* text, bool bBreakLine, bool bUseTag)
+void owl::Debug::ILog(EDebugMode mode, str* text, bool bBreakLine, bool bUseTag)
 {
 
 	if (bUseTag)

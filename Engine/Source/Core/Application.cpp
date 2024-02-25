@@ -7,7 +7,6 @@
 #include "../Logic/Header/Game.h"
 #include "../Render/Header/Graphics.h"
 
-
 owl::Application::Application()
 	: m_Game(nullptr)
 {

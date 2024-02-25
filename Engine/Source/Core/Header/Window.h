@@ -18,18 +18,18 @@ namespace owl
 		// GET methods
 
 		static std::string OWL_API GetTitle() { return GetInstance().m_Title; }
-		static std::array<ushort, 2> OWL_API GetSize() { return GetInstance().m_Size; }
-		static std::array<ushort, 2> OWL_API GetScreen() { return GetInstance().m_Screen; }
-		static std::array<ushort, 2> OWL_API GetPosition() { return GetInstance().m_Position; }
-		static std::array<ushort, 3> OWL_API GetBackgroundColour() { return GetInstance().m_BackgroundColour; }
+		static std::array<u16, 2> OWL_API GetSize() { return GetInstance().m_Size; }
+		static std::array<u16, 2> OWL_API GetScreen() { return GetInstance().m_Screen; }
+		static std::array<u16, 2> OWL_API GetPosition() { return GetInstance().m_Position; }
+		static std::array<u8, 3> OWL_API GetBackgroundColour() { return GetInstance().m_BackgroundColour; }
 
 		// SET methods
 
-		static void OWL_API SetBackgroundColour(ushort red, ushort green, ushort blue) { GetInstance().m_BackgroundColour = { red, green, blue }; }
+		static void OWL_API SetTitle(const std::string& title) { GetInstance().m_Title = title; }
+		static void OWL_API SetSize(u16 width, u16 height) { GetInstance().m_Size = { width, height }; }
 		static void OWL_API SetDisplayMode(EWindowDisplayMode mode) { GetInstance().m_DisplayMode = mode; }
+		static void OWL_API SetBackgroundColour(u8 red, u8 green, u8 blue) { GetInstance().m_BackgroundColour = { red, green, blue }; }
 		static void OWL_API SetInitializeMaximized(bool maximize) { GetInstance().m_bMaximized = maximize; }
-		static void OWL_API SetSize(ushort width, ushort height) { GetInstance().m_Size = { width, height }; }
-		static void OWL_API SetTitle(std::string_view title) { GetInstance().m_Title = title; }
 
 		// Friends
 		friend class Application;
@@ -51,14 +51,13 @@ namespace owl
 		GLFWwindow* m_Id;
 		GLFWmonitor* m_Monitor;
 
-		EWindowDisplayMode m_DisplayMode;
-
 		std::string m_Title;
-		std::array<ushort, 2> m_Size;
-		std::array<ushort, 2> m_Screen;
-		std::array<ushort, 2> m_Position;
-		std::array<ushort, 3> m_BackgroundColour;
+		std::array<u16, 2> m_Size;
+		std::array<u16, 2> m_Screen;
+		std::array<u16, 2> m_Position;
+		std::array<u8, 3> m_BackgroundColour;
 
+		EWindowDisplayMode m_DisplayMode;
 		bool m_bMaximized;
 
 		bool Create();

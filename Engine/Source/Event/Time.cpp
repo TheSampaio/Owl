@@ -19,8 +19,8 @@ owl::Time::~Time()
 void owl::Time::DeltaTimeMonitor()
 {
 #ifdef WL_DEBUG
-    static float totalTime = 0.0f;
-    static uint  frameCount = 0;
+    static f32 totalTime = 0.0f;
+    static u16  frameCount = 0;
 #endif !WL_DEBUG
 
     m_DeltaTime = m_pTimer->Reset();

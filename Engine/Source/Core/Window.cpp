@@ -13,7 +13,7 @@ owl::Window::Window()
 
 	// Initialize window's attributes
 	m_Monitor = glfwGetPrimaryMonitor();
-	m_Screen = { static_cast<ushort>(glfwGetVideoMode(m_Monitor)->width), static_cast<ushort>(glfwGetVideoMode(m_Monitor)->height) };
+	m_Screen = { static_cast<u16>(glfwGetVideoMode(m_Monitor)->width), static_cast<u16>(glfwGetVideoMode(m_Monitor)->height) };
 	m_Size = { m_Screen[0], m_Screen[1] };
 	m_Position = { 0, 0 };
 	m_BackgroundColour = { 0, 0, 0 };
@@ -63,7 +63,7 @@ bool owl::Window::Create()
 
 		if (m_Id)
 		{
-			m_Position = { static_cast<ushort>(m_Screen[0] / 2 - m_Size[0] / 2), static_cast<ushort>(m_Screen[1] / 2 - m_Size[1] / 2) };
+			m_Position = { static_cast<u16>(m_Screen[0] / 2 - m_Size[0] / 2), static_cast<u16>(m_Screen[1] / 2 - m_Size[1] / 2) };
 			glfwSetWindowPos(m_Id, m_Position[0], m_Position[1]);
 
 			if (m_bMaximized)
